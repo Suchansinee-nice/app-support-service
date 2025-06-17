@@ -45,7 +45,7 @@ public class ServiceLoggingEntity {
 	private String ruleList;
 	
 	@Column(name = "COLLECTOR_USAGE_TIME")
-	private String colectorUsageTime;
+	private String collectorUsageTime;
 	@Column(name = "COLLECTOR_LIST")
 	private String collectorList;
 	@Column(name = "SERVICE_USAGE_TIME")
