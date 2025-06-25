@@ -5,8 +5,11 @@ import lombok.Data;
 @Data
 public class Rules {
 	
-	private String message;
-	private String messageCode;
+	private String messageTH;
+	private String messageEN;
+	private String code;
 	private String status;
-	private String rule;
+	private String statusFrontend;
+	private String messageFrontendTH;
+	private String messageFrontendEN;
 }

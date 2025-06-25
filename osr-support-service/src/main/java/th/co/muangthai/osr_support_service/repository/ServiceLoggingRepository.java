@@ -24,13 +24,10 @@ public class ServiceLoggingRepository {
 	public List<ServiceLoggingEntity>  getServiceLogging(RequestSearchTransaction request) {
 		
 		StringBuilder sql  = new StringBuilder();
-		List<Object> params = new ArrayList<>();
 		List<ServiceLoggingEntity> list = new ArrayList<ServiceLoggingEntity>();
-		
-		params.add(request.getCreatedDate());
-		
+				
 		sql.append("SELECT * FROM OSR.SERVICE_LOGGING where transaction_id = ? AND TRUNC(created_date) = ?");
-		list = jdbcTemplate.query(sql.toString(), listRowmapper, params);
+		list = jdbcTemplate.query(sql.toString(), listRowmapper, new Object[] {request.getTransactionId(), request.getCreatedDate()});
 		
 		return list;
 		
@@ -40,7 +37,7 @@ public class ServiceLoggingRepository {
 		@Override
 		public ServiceLoggingEntity mapRow(ResultSet rs, int arg1) throws SQLException {
 			ServiceLoggingEntity log = new ServiceLoggingEntity();
-
+			
 			log.setAllRuleLog(rs.getString("ALL_RULE_EXECUTE_LOG"));
 			log.setChannelCode(rs.getString("CHANNEL_CODE"));
 			log.setCollectorList(rs.getString("COLLECTOR_LIST"));
