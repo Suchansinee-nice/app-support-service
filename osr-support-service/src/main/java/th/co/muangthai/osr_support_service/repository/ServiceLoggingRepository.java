@@ -27,7 +27,7 @@ public class ServiceLoggingRepository {
 		List<ServiceLoggingEntity> list = new ArrayList<ServiceLoggingEntity>();
 				
 		sql.append("SELECT * FROM OSR.SERVICE_LOGGING where transaction_id = ? AND TRUNC(created_date) = ?");
-		list = jdbcTemplate.query(sql.toString(), listRowmapper, new Object[] {request.getTransactionId(), request.getCreatedDate()});
+		list = jdbcTemplate.query(sql.toString(), listRowmapper, new Object[] {request.getTransactionId(), request.getDate()});
 		
 		return list;
 		
