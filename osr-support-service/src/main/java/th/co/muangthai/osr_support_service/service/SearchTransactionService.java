@@ -46,6 +46,7 @@ public class SearchTransactionService {
 			result.setTimeUsage(log.getTimeUsage());
 			result.setServiceUsage(log.getServiceUsageTime());
 			result.setCollectorUsage(log.getCollectorUsageTime());
+			result.setDateTime(log.getDateTime().toLocalDateTime());
 			
 			//json
 			try {

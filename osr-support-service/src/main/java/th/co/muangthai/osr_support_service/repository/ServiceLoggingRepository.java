@@ -52,6 +52,7 @@ public class ServiceLoggingRepository {
 			log.setTimeUsage(rs.getString("TIME_USAGE"));
 			log.setTransactionId(rs.getString("TRANSACTION_ID"));
 			log.setServiceUsageTime(rs.getString("SERVICE_USAGE_TIME"));
+			log.setDateTime(rs.getTimestamp("CREATED_DATE"));
 			
 			return log;
 		}

@@ -1,5 +1,6 @@
 package th.co.muangthai.osr_support_service.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import org.springframework.data.relational.core.mapping.Table;
@@ -54,4 +55,5 @@ public class ServiceLoggingEntity {
 	@Column(name = "ALL_RULE_EXECUTE_LOG")
 	private String allRuleLog;
 	
+	private Timestamp dateTime;
 }
