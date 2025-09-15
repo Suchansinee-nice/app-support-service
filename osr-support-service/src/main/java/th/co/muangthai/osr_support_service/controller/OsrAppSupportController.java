@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
+import lombok.extern.log4j.Log4j2;
 import th.co.muangthai.osr_support_service.request.RequestSearchTransaction;
 import th.co.muangthai.osr_support_service.response.ResponseSearchTransaction;
 import th.co.muangthai.osr_support_service.service.SearchTransactionService;
 
+@Log4j2
 @RestController
 @RequestMapping("/api")
 public class OsrAppSupportController {
@@ -25,7 +27,7 @@ public class OsrAppSupportController {
 	@Autowired
 	private SearchTransactionService searchTransactionService;
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*")
 	@PostMapping(value = "/searchTransaction",produces = "application/json")
 	public ResponseEntity<ResponseSearchTransaction> searchTransaction(@RequestBody @Valid RequestSearchTransaction request) {
 		ResponseSearchTransaction response  = new ResponseSearchTransaction();

@@ -1,6 +1,8 @@
 package th.co.muangthai.osr_support_service.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -15,6 +17,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import lombok.extern.log4j.Log4j2;
 import th.co.muangthai.osr_support_service.entity.ServiceLoggingEntity;
 import th.co.muangthai.osr_support_service.model.Results;
 import th.co.muangthai.osr_support_service.model.Rules;
@@ -23,6 +26,7 @@ import th.co.muangthai.osr_support_service.request.RequestSearchTransaction;
 import th.co.muangthai.osr_support_service.response.ResponseSearchTransaction;
 
 @Service
+@Log4j2
 public class SearchTransactionService {
 	
 	private Logger logger = LogManager.getLogger(SearchTransactionService.class);
@@ -56,6 +60,11 @@ public class SearchTransactionService {
 				JsonElement jsonMessageBackendList = jsonResponseBody.getAsJsonArray("messageBackendList");
 				
 				List<Rules> rulesList = mapper.readValue(jsonMessageBackendList.toString(), new TypeReference<List<Rules>>() {});
+				Collections.sort(rulesList, Comparator.comparingInt(r -> {
+				    String code = r.getCode();                 
+				    String numberPart = code.substring(2, 4);  
+				    return Integer.parseInt(numberPart);       
+				}));
 				result.setRules(rulesList);
 			} catch (JsonProcessingException e) {
 				// TODO Auto-generated catch block
