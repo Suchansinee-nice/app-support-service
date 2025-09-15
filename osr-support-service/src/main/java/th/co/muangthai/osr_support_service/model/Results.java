@@ -17,4 +17,5 @@ public class Results {
 	private String collectorUsage;
 	private String serviceUsage;
 	private List<Rules> rules;
+	private List<Documents> documents;
 }

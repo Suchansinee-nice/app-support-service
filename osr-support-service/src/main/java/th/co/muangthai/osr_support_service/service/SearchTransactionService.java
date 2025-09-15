@@ -19,6 +19,7 @@ import com.google.gson.JsonParser;
 
 import lombok.extern.log4j.Log4j2;
 import th.co.muangthai.osr_support_service.entity.ServiceLoggingEntity;
+import th.co.muangthai.osr_support_service.model.Documents;
 import th.co.muangthai.osr_support_service.model.Results;
 import th.co.muangthai.osr_support_service.model.Rules;
 import th.co.muangthai.osr_support_service.repository.ServiceLoggingRepository;
@@ -58,14 +59,18 @@ public class SearchTransactionService {
 				JsonObject jsonObject = JsonParser.parseString(log.getResponseJson()).getAsJsonObject();
 				JsonObject jsonResponseBody = jsonObject.getAsJsonObject("responseBody");
 				JsonElement jsonMessageBackendList = jsonResponseBody.getAsJsonArray("messageBackendList");
+				JsonElement jsonDocumentList = jsonResponseBody.getAsJsonArray("documentList");
 				
 				List<Rules> rulesList = mapper.readValue(jsonMessageBackendList.toString(), new TypeReference<List<Rules>>() {});
+				List<Documents> documentList = mapper.readValue(jsonDocumentList.toString(), new TypeReference<List<Documents>>() {});
+
 				Collections.sort(rulesList, Comparator.comparingInt(r -> {
 				    String code = r.getCode();                 
 				    String numberPart = code.substring(2, 4);  
 				    return Integer.parseInt(numberPart);       
 				}));
 				result.setRules(rulesList);
+				result.setDocuments(documentList);
 			} catch (JsonProcessingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
