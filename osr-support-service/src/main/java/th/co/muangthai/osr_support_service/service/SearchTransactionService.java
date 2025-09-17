@@ -52,6 +52,8 @@ public class SearchTransactionService {
 			result.setServiceUsage(log.getServiceUsageTime());
 			result.setCollectorUsage(log.getCollectorUsageTime());
 			result.setDateTime(log.getDateTime().toLocalDateTime());
+			result.setChannelCode(log.getChannelCode());
+			result.setSection(log.getSection());
 			
 			//json
 			try {

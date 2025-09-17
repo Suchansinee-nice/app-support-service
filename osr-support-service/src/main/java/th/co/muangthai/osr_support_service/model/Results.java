@@ -18,4 +18,6 @@ public class Results {
 	private String serviceUsage;
 	private List<Rules> rules;
 	private List<Documents> documents;
+	private String channelCode;
+	private String section;
 }

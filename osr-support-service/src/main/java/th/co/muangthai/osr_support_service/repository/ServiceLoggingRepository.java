@@ -10,11 +10,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import lombok.extern.log4j.Log4j2;
 import th.co.muangthai.osr_support_service.entity.ServiceLoggingEntity;
 import th.co.muangthai.osr_support_service.request.RequestSearchTransaction;
 
 
 @Repository
+@Log4j2
 public class ServiceLoggingRepository {
 	
 	@Autowired
@@ -24,10 +26,26 @@ public class ServiceLoggingRepository {
 	public List<ServiceLoggingEntity>  getServiceLogging(RequestSearchTransaction request) {
 		
 		StringBuilder sql  = new StringBuilder();
+		List<Object> params = new ArrayList<>();
 		List<ServiceLoggingEntity> list = new ArrayList<ServiceLoggingEntity>();
 				
-		sql.append("SELECT * FROM OSR.SERVICE_LOGGING where transaction_id = ? AND TRUNC(created_date) = ?");
-		list = jdbcTemplate.query(sql.toString(), listRowmapper, new Object[] {request.getTransactionId(), request.getDate()});
+		sql.append("SELECT * FROM OSR.SERVICE_LOGGING where TRUNC(created_date) = ?");
+		params.add(request.getDate());
+		
+		if(request.getTransactionId() != null && !request.getTransactionId().isEmpty()) {
+			sql.append(" AND transaction_id = ?");
+			params.add(request.getTransactionId());
+		}
+		if(request.getRefNo() != null && !request.getRefNo().isEmpty()) {
+			sql.append(" AND transaction_id like ?");
+			params.add("%" + request.getRefNo());
+		}
+		if(request.getIdCard() != null && !request.getIdCard().isEmpty()) {
+			sql.append(" AND request_json like ?");
+			params.add("%" +request.getIdCard() + "%");
+		}
+		log.info(sql.toString());
+		list = jdbcTemplate.query(sql.toString(), listRowmapper, params.toArray());
 		
 		return list;
 		

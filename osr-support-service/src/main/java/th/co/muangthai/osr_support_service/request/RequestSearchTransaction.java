@@ -11,5 +11,6 @@ public class RequestSearchTransaction {
 	private String transactionId;
 	private Date createdDate;
 	private String date;
+	private String idCard;
 	
 }
